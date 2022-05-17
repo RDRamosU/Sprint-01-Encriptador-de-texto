@@ -1,0 +1,226 @@
+<!DOCTYPE hmtl>
+<html lang="esp">
+
+<html>
+
+  <head>
+    <meta charset = "UTF-8">
+    <title>Sprint 01 | Encriptador</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <style>
+
+    * {
+      justify-content: center;
+
+      background: #E5E5E5;
+      font-family: "Inter" sans-serif;
+      font-weight: 400;
+      font-size: 24;
+      line-height: 150%;
+    }
+
+    header {
+      width: auto;
+      margin-left: 20px;
+    }
+
+    main {
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .input-text {
+      display: block;
+      resize: none;
+
+      margin-top: 100px;
+      width: 400px;
+      height: 50px;
+
+      border: none;
+      outline: none;
+
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size:24px;
+      color: #0A3871;
+    }
+
+    h6 {
+      margin-top: 210px;
+      width: 205px;
+      height: 18px;
+      padding: 10px 0;
+
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 150%;
+
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    .input-text-area {
+      resize: none;
+
+      position:absolute;
+      outline-color: #0A3871;
+
+      text-align: center;
+      width: 300px;
+      height: 500px;
+      left: 1000px;
+      top: 40px;
+
+      border-radius: 25px;
+      border-color: #0A3871;
+    }
+
+    button {
+      display: inline-block;
+
+      margin-left: 0px;
+      border-radius: 32px;
+      background-color: #0A3871;
+      gap: 8px;
+      width: 160px;
+      height: 40px;
+      color: #FFFFFF;
+    }
+
+    button:hover {
+      background: #D8DFE8;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size:24px;
+
+      color: #0A3871
+    }
+
+    #copiar{
+      position: absolute;
+      display: flex;
+      margin-left: 1045px;
+    }
+
+    p {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 100%;
+
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    footer {
+      position: absolute;
+      justify-content: center;
+      bottom: 0;
+      width: 300px;
+    }
+
+    </style>
+  </head>
+
+  <body>
+
+        <header>
+          <img src="./imagenes/Vector.png"
+        </header>
+
+        <main>
+          <section>
+            <form>
+              <textArea type="text" class="input-text" cols="40" rows="6" placeholder="Ingrese el texto aqui" required></textArea>
+
+              <h6>Solo letras minúsculas y sin acentos</h6>
+            </form>
+
+            <button type= "button" onclick="btnEncriptar()">Encriptar</button>
+            <button type= "button" onclick="btnDesencriptar()">Desencriptar</button>
+
+          </section>
+        </main>
+
+        <section>
+
+          <div class="areaText">
+            <textArea type="text" class="input-text-area" cols="18" rows="8" readonly="yes"></textArea>
+            <button id="copiar" type="button" name="button" onclick="copiarTexto()">Copiar</button>
+          </div>
+
+        </section>
+
+  </body>
+
+<footer>
+    <p>Desarrollado por Ruben Dario Ramos Ulate | 2022</p>
+</footer>
+
+<script>
+
+var inputTexto = document.querySelector(".input-text");
+var mensaje = document.querySelector(".input-text-area");
+inputTexto.focus();
+
+/* boton para encriptar */
+function btnEncriptar(){
+  var textoEncriptado = encriptar(inputTexto.value);
+  mensaje.value = textoEncriptado;
+}
+
+/* funcion para encriptar */
+function encriptar(StringParaEncriptar){
+  var matrizCodigo = [["e","enter"],["i","imes"],["a","ai"],["o","ober"],["u","ufat"]];
+  StringParaEncriptar = StringParaEncriptar.toLowerCase();
+
+  for(var i= 0; i < matrizCodigo.length; i++){
+    if(StringParaEncriptar.includes(matrizCodigo[i][0])){
+      StringParaEncriptar = StringParaEncriptar.replaceAll(matrizCodigo[i][0],matrizCodigo[i][1]);
+    }
+  }
+  inputTexto.value = "";
+  return StringParaEncriptar;
+}
+
+/* boton para desencriptar */
+function btnDesencriptar(){
+  var textoDesencriptado = desencriptar(inputTexto.value);
+  mensaje.value = textoDesencriptado;
+}
+
+/* boton para desencriptar */
+function desencriptar(StringParaDesencriptar){
+  var matrizCodigo2 = [["e","enter"],["i","imes"],["a","ai"],["o","ober"],["u","ufat"]];
+  StringParaDesencriptar = StringParaDesencriptar.toLowerCase();
+
+  for(var i= 0; i < matrizCodigo2.length; i++){
+    if(StringParaDesencriptar.includes(matrizCodigo2[i][1])){
+      StringParaDesencriptar = StringParaDesencriptar.replaceAll(matrizCodigo2[i][1],matrizCodigo2[i][0]);
+    }
+  }
+  inputTexto.value = "";
+  return StringParaDesencriptar;
+}
+
+/* funcion para copiar */
+function copiarTexto() {
+
+    var contenido = document.querySelector(".input-text-area");
+
+    contenido.select();
+    document.execCommand("copy");
+
+    alert("Texto Copiado!");
+    inputTexto.focus();
+}
+
+</script>
